@@ -11,7 +11,6 @@ tableData.forEach((UFOsighting) => {
         cell.text(value);
     });
 });
-
 var button = d3.select("#filter-btn");
 var form = d3.select("#form");
 
@@ -28,8 +27,15 @@ function runEnter() {
     var inputValue = inputElement.property("value");
     console.log(inputValue);
     console.log(tableData)
-    // Use the form input to filter the data by blood type
-  
-    var filteredData = tableData.filter(date => date.Date === inputValue);
+    var filteredData = tableData.filter(date => date.datetime === inputValue.trim());
     console.log(filteredData);
+    tbody.html("");
+    
+    filteredData.forEach((date) => {
+        var row = tbody.append('tr');
+        Object.entries(date).forEach(([key,value]) => {
+            var cell = row.append('td');
+            cell.text(value);
+        });
+    });
 }
